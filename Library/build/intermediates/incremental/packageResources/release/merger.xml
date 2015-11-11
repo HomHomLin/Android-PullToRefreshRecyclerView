@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res"><file name="psts_background_tab" path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res\drawable\psts_background_tab.xml" qualifiers="" type="drawable"/><file name="psts_new_tips_bg" path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res\drawable\psts_new_tips_bg.9.png" qualifiers="" type="drawable"/><file path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res\values\attrs.xml" qualifiers=""><declare-styleable name="RowLayout">
+        <attr name="android:horizontalSpacing"/>
+    </declare-styleable><declare-styleable name="PagerSlidingTabStrip">
+        <attr format="color" name="indicatorColor"/>
+        <attr format="color" name="underlineColor"/>
+        <attr format="color" name="dividerColor"/>
+        <attr format="color" name="tabTextSelectColor"/>
+        <attr format="dimension" name="indicatorHeight"/>
+        <attr format="dimension" name="underlineHeight"/>
+        <attr format="dimension" name="psts_dividerPadding"/>
+        <attr format="dimension" name="tabPaddingLeftRight"/>
+        <attr format="dimension" name="tabPaddingTopBottom"/>
+        <attr format="dimension" name="scrollOffset"/>
+        <attr format="reference" name="ptabBackground"/>
+        <attr format="boolean" name="shouldExpand"/>
+        <attr format="boolean" name="psts_textAllCaps"/>
+        <attr format="enum" name="apsts_draw_mode">
+            <enum name="normal" value="0"/>
+            <enum name="text" value="1"/>
+        </attr>
+    </declare-styleable><declare-styleable name="TaberLayout">
+        <attr format="reference" name="tabBackground"/>
+        <attr format="reference|integer" name="animTime"/>
+    </declare-styleable></file><file path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res\values\colors.xml" qualifiers=""><color name="background_tab_pressed">#6633B5E5</color></file><file path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res\values\dimens.xml" qualifiers=""><dimen name="psts_dot_wh">8dp</dimen><dimen name="psts_dot_linelayout_h">23dp</dimen></file><file path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\res\values\ids.xml" qualifiers=""><item name="tag_position" type="id"/></file></source><source path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\build\generated\res\rs\release"/><source path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\build\generated\res\generated\release"/></dataSet><dataSet config="release"><source path="F:\Project\kascend\AdvancedPagerSlidingTabStrip\Library\src\release\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="PagerSlidingTabStrip"><attr format="color" name="indicatorColor"/><attr format="color" name="underlineColor"/><attr format="color" name="dividerColor"/><attr format="color" name="tabTextSelectColor"/><attr format="dimension" name="indicatorHeight"/><attr format="dimension" name="underlineHeight"/><attr format="dimension" name="psts_dividerPadding"/><attr format="dimension" name="tabPaddingLeftRight"/><attr format="dimension" name="tabPaddingTopBottom"/><attr format="dimension" name="scrollOffset"/><attr format="reference" name="ptabBackground"/><attr format="boolean" name="shouldExpand"/><attr format="boolean" name="psts_textAllCaps"/><attr format="enum" name="apsts_draw_mode"><enum name="normal" value="0"/><enum name="text" value="1"/></attr></declare-styleable><declare-styleable name="RowLayout"><attr name="android:horizontalSpacing"/></declare-styleable><declare-styleable name="TaberLayout"><attr format="reference" name="tabBackground"/><attr format="reference|integer" name="animTime"/></declare-styleable></configuration></mergedItems></merger>
