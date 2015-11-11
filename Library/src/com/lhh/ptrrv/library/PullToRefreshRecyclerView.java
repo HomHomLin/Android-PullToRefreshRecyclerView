@@ -272,7 +272,8 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             visibleItemCount = mLinearLayoutManager.getChildCount();
             totalItemCount = mLinearLayoutManager.getItemCount();
             firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-            lastVisibleItem = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+            lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();//有可能最后一项实在太大了，没办法完全显示
+//            lastVisibleItem = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
 
             if(mIsSwipeEnable) {
                 if (mLinearLayoutManager.findFirstCompletelyVisibleItemPosition() != 0) {
