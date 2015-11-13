@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Android-PullToRefreshRecyclerView</string>
+    <string name="hello">Hello world.</string>
+    <string name="nomoredata">no data any more</string>
+
 </resources>
