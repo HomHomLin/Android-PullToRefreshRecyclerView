@@ -59,22 +59,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(mAdapter.getItemCount() == DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET){
-                //over
-                Toast.makeText(MainActivity.this, R.string.nomoredata, Toast.LENGTH_SHORT).show();
-                mPtrrv.onFinishLoading(false, false);
-            }else {
-                if (msg.what == MSG_CODE_REFRESH) {
-                    mAdapter.setCount(DEFAULT_ITEM_SIZE);
-                    mAdapter.notifyDataSetChanged();
-                    mPtrrv.setOnRefreshComplete();
-                } else if (msg.what == MSG_CODE_LOADMORE) {
+            if (msg.what == MSG_CODE_REFRESH) {
+                mAdapter.setCount(DEFAULT_ITEM_SIZE);
+                mAdapter.notifyDataSetChanged();
+                mPtrrv.setOnRefreshComplete();
+            } else if (msg.what == MSG_CODE_LOADMORE) {
+                if(mAdapter.getItemCount() == DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET){
+                    //over
+                    Toast.makeText(MainActivity.this, R.string.nomoredata, Toast.LENGTH_SHORT).show();
+                    mPtrrv.onFinishLoading(false, false);
+                }else {
                     mAdapter.setCount(DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET);
                     mAdapter.notifyDataSetChanged();
                     mPtrrv.onFinishLoading(true, false);
                 }
             }
-
         }
     };
 
