@@ -5,16 +5,6 @@
     <color name="swap_holo_bule_bright">#4996e5</color>
     <color name="swap_holo_green_bright">#48B94A</color>
     <color name="swap_holo_pure_bright">#d066b1</color>
-    <declare-styleable name="PagerSlidingTabStrip"><attr format="color" name="indicatorColor"/><attr format="color" name="underlineColor"/><attr format="color" name="dividerColor"/><attr format="color" name="tabTextSelectColor"/><attr format="dimension" name="indicatorHeight"/><attr format="dimension" name="underlineHeight"/><attr format="dimension" name="psts_dividerPadding"/><attr format="dimension" name="tabPaddingLeftRight"/><attr format="dimension" name="tabPaddingTopBottom"/><attr format="dimension" name="scrollOffset"/><attr format="reference" name="ptabBackground"/><attr format="boolean" name="shouldExpand"/><attr format="boolean" name="psts_textAllCaps"/><attr format="enum" name="apsts_draw_mode"><enum name="normal" value="0"/><enum name="text" value="1"/></attr></declare-styleable>
-    <declare-styleable name="RowLayout"><attr name="android:horizontalSpacing"/></declare-styleable>
-    <declare-styleable name="TaberLayout"><attr format="reference" name="tabBackground"/><attr format="reference|integer" name="animTime"/></declare-styleable>
-    <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/dimens.xml -->
-    <eat-comment/>
-    <dimen name="psts_dot_linelayout_h">23dp</dimen>
-    <dimen name="psts_dot_wh">8dp</dimen>
-    <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/ids.xml -->
-    <eat-comment/>
-    <item name="tag_position" type="id"/>
     <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/strings.xml -->
     <eat-comment/>
     <string name="loading">加载中...</string>
