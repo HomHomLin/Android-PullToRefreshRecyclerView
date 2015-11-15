@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Android-PullToRefreshRecyclerView</string>
-    <string name="hello">Hello world.</string>
+    <string name="hello">Ptrrv</string>
     <string name="nomoredata">no data any more</string>
-
+    <string name="gridview_mode">GridView Mode</string>
+    <string name="listview_mode">ListView Mode</string>
 </resources>
