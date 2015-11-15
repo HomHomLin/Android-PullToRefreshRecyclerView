@@ -18,10 +18,12 @@ public interface PrvInterface{
     public void setHeader(View view);
     public void setFooter(View view);
     public void addOnScrollListener(PullToRefreshRecyclerView.OnScrollListener onScrollLinstener);
-    public LinearLayoutManager getLinearLayoutManager();
+    public RecyclerView.LayoutManager getLayoutManager();
     public void onFinishLoading(boolean hasMoreItems, boolean needSetSelection);
     public void setSwipeEnable(boolean enable);//设置是否可以下拉
     public boolean isSwipeEnable();//返回当前组件是否可以下拉
     public RecyclerView getRecyclerView();
+    public void setLayoutManager(RecyclerView.LayoutManager layoutManager);
+    public void setLoadMoreCount(int count);//如果不达到count数量不让加载更多
     public void release();
 }

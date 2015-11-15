@@ -1,12 +1,8 @@
 package com.lhh.ptrrv.library;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -27,27 +23,21 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private RecyclerView mRecyclerView;
 
-    private View mRootRelativeLayout;//主view,包含footer，header等
-
-//    private RelativeLayout mEmptyViewRelativeLayout;//内嵌view，包含recyclerview和emptyview等七七八八的东西
+//    private View mRootRelativeLayout;//主view,包含footer，header等
 
     private View mEmptyView;
 
-//    private View mHeaderView;
+    private int mLoadMoreCount = 10;//default = 10
 
     private boolean mIsSwipeEnable = false;
-
-//    private View mFooterView;
-
-//    private View mLoadMoreView;//加载更多的view
-
-//    private NestedScrollView mNestedScrollView;
 
     private Context mContext;
 
     private BaseFooter mLoadMoreFooter;
 
-    private LinearLayoutManager mLinearLayoutManager;
+//    private RecyclerView.LayoutManager mLayoutManger;
+
+//    private LinearLayoutManager mLinearLayoutManager;
 
     private LayoutParams mFullLayoutParams;//全屏型lp
 
@@ -99,23 +89,19 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private void initView(){
         //初始化布局
-        mRootRelativeLayout = LayoutInflater.from(mContext).inflate(R.layout.ptrrv_root_view, null);
+        mRecyclerView = (RecyclerView)LayoutInflater.from(mContext).inflate(R.layout.ptrrv_root_view, null);
 
-        this.addView(mRootRelativeLayout, mFullLayoutParams);
+        this.addView(mRecyclerView, mFullLayoutParams);
 
         this.setColorSchemeResources(R.color.swap_holo_green_bright, R.color.swap_holo_bule_bright,
                 R.color.swap_holo_green_bright, R.color.swap_holo_bule_bright);
 
         //初始化loadmoreview
 
-//        mNestedScrollView = (NestedScrollView)mRootRelativeLayout.findViewById(R.id.nsv);
-//
-//        mEmptyViewRelativeLayout = (RelativeLayout)mRootRelativeLayout.findViewById(R.id.rlEmpty);
+//        mRecyclerView = (RecyclerView)mRootRelativeLayout.findViewById(R.id.recycler_view);
 
-        mRecyclerView = (RecyclerView)mRootRelativeLayout.findViewById(R.id.recycler_view);
-
-        mLinearLayoutManager = new LinearLayoutManager(mContext);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+//        mLinearLayoutManager = new LinearLayoutManager(mContext);
+//        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         if(!mIsSwipeEnable) {
@@ -161,14 +147,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void setEmptyView(View emptyView) {
-//        if(mEmptyView != null) {
-//            //先把它移出去
-//            mEmptyViewRelativeLayout.removeView(mEmptyView);
-//        }
         mEmptyView = emptyView;
-//        if(mEmptyView != null) {
-//            mEmptyViewRelativeLayout.addView(mEmptyView, mFullLayoutParams);
-//        }
     }
 
     @Override
@@ -199,18 +178,21 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     @Override
-    public LinearLayoutManager getLinearLayoutManager() {
-        return mLinearLayoutManager;
+    public RecyclerView.LayoutManager getLayoutManager() {
+        if(mRecyclerView != null) {
+            return mRecyclerView.getLayoutManager();
+        }
+        return null;
     }
 
     @Override
     public void onFinishLoading(boolean hasMoreItems, boolean needSetSelection) {
         //当一页数据太少的时候，不用显示loadingview
         //临时修改，当一页数据太少的时候，不用显示loadingview
-        if(mLinearLayoutManager == null){
+        if(getLayoutManager() == null){
             return;
         }
-        if (mLinearLayoutManager.getItemCount() < 10)
+        if (getLayoutManager().getItemCount() < mLoadMoreCount)
             hasMoreItems = false;
 
         setHasMoreItems(hasMoreItems);
@@ -218,9 +200,39 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         isLoading = false;
 
         if (needSetSelection) {
-            int first = mLinearLayoutManager.findFirstVisibleItemPosition();
+            int first = findFirstVisibleItemPosition();
             mRecyclerView.scrollToPosition(--first);
         }
+    }
+
+    public int findFirstVisibleItemPosition(){
+        if(getLayoutManager() != null) {
+
+            if (getLayoutManager() instanceof LinearLayoutManager) {
+                return ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
+            }
+
+            if (getLayoutManager() instanceof GridLayoutManager) {
+                return ((GridLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
+            }
+
+        }
+        return RecyclerView.NO_POSITION;
+    }
+
+    public int findLastVisibleItemPosition(){
+        if(getLayoutManager() != null) {
+
+            if (getLayoutManager() instanceof LinearLayoutManager) {
+                return ((LinearLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
+            }
+
+            if (getLayoutManager() instanceof GridLayoutManager) {
+                return ((GridLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
+            }
+
+        }
+        return RecyclerView.NO_POSITION;
     }
 
     @Override
@@ -238,6 +250,18 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     @Override
     public RecyclerView getRecyclerView() {
         return this.mRecyclerView;
+    }
+
+    @Override
+    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
+        if(mRecyclerView != null){
+            mRecyclerView.setLayoutManager(layoutManager);
+        }
+    }
+
+    @Override
+    public void setLoadMoreCount(int count) {
+        mLoadMoreCount = count;
     }
 
     private void setHasMoreItems(boolean hasMoreItems) {
@@ -270,17 +294,22 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            //在向下回调之前做处理
+            //在向下回调之前做处理,do before callback
+            if(getLayoutManager() == null){
+                //here layoutManager is null
+                return;
+            }
 
             int firstVisibleItem, visibleItemCount, totalItemCount, lastVisibleItem;
-            visibleItemCount = mLinearLayoutManager.getChildCount();
-            totalItemCount = mLinearLayoutManager.getItemCount();
-            firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-            lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();//有可能最后一项实在太大了，没办法完全显示
+            visibleItemCount = getLayoutManager().getChildCount();
+            totalItemCount = getLayoutManager().getItemCount();
+            firstVisibleItem = findFirstVisibleItemPosition();
+            lastVisibleItem = findLastVisibleItemPosition();//有可能最后一项实在太大了，没办法完全显示
 //            lastVisibleItem = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
 
             if(mIsSwipeEnable) {
-                if (mLinearLayoutManager.findFirstCompletelyVisibleItemPosition() != 0) {
+                if (findFirstVisibleItemPosition() != 0) {
+                    //这里还有个bug，如果用findFirstCompletelyVisibleItemPosition会产生如果第一条太大，没办法完全显示则无法下啦刷新
                     //如果不是第一条可见就不让下拉，要不然会出现很严重的到处都能下拉的问题
                     PullToRefreshRecyclerView.this.setEnabled(false);
                 } else {
@@ -288,7 +317,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
                 }
             }
 
-            if(totalItemCount < 10){
+            if(totalItemCount < mLoadMoreCount){
                 setHasMoreItems(false);
                 isLoading = false;
             }else if (!isLoading && hasMoreItems && ((lastVisibleItem + 1) == totalItemCount)) {
