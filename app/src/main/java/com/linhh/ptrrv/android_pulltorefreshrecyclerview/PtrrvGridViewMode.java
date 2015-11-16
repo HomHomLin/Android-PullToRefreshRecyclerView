@@ -68,6 +68,7 @@ public class PtrrvGridViewMode extends AppCompatActivity {
                 mAdapter.setCount(DEFAULT_ITEM_SIZE);
                 mAdapter.notifyDataSetChanged();
                 mPtrrv.setOnRefreshComplete();
+                mPtrrv.onFinishLoading(true, false);
             } else if (msg.what == MSG_CODE_LOADMORE) {
                 if(mAdapter.getItemCount() == DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET){
                     //over

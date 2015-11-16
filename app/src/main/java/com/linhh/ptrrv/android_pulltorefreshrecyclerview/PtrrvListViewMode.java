@@ -53,6 +53,8 @@ public class PtrrvListViewMode  extends AppCompatActivity {
                 mHandler.sendEmptyMessageDelayed(MSG_CODE_REFRESH, TIME);
             }
         });
+        mPtrrv.getRecyclerView().addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
         mAdapter = new PtrrvAdapter(this);
         mAdapter.setCount(DEFAULT_ITEM_SIZE);
         mPtrrv.setAdapter(mAdapter);
@@ -67,6 +69,7 @@ public class PtrrvListViewMode  extends AppCompatActivity {
                 mAdapter.setCount(DEFAULT_ITEM_SIZE);
                 mAdapter.notifyDataSetChanged();
                 mPtrrv.setOnRefreshComplete();
+                mPtrrv.onFinishLoading(true, false);
             } else if (msg.what == MSG_CODE_LOADMORE) {
                 if(mAdapter.getItemCount() == DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET){
                     //over

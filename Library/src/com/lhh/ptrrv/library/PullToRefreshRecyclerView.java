@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +43,10 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     private LayoutParams mFullLayoutParams;//全屏型lp
 
     private PagingableListener mPagingableListener;
+
+    private int[] mSpanItem;
+
+    private static final int SPAN_SIZE = 1;
 
     private AdapterObserver mAdapterObserver;
 
@@ -118,6 +123,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         mContext = context;
         isLoading = false;
         hasMoreItems = false;
+        mSpanItem = new int[SPAN_SIZE];
         //初始化一些七七八八的东西
         if(mFullLayoutParams == null) {
             mFullLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
@@ -216,6 +222,10 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
                 return ((GridLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
             }
 
+//            if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
+//                return (((StaggeredGridLayoutManager) getLayoutManager()).findFirstVisibleItemPositions(mSpanItem))[0];
+//            }
+
         }
         return RecyclerView.NO_POSITION;
     }
@@ -230,6 +240,10 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             if (getLayoutManager() instanceof GridLayoutManager) {
                 return ((GridLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
             }
+
+//            if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
+//                return (((StaggeredGridLayoutManager) getLayoutManager()).findLastVisibleItemPositions(mSpanItem))[0];
+//            }
 
         }
         return RecyclerView.NO_POSITION;
