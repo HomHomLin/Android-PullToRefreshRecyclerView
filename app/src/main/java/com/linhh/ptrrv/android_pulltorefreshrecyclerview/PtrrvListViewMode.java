@@ -55,6 +55,7 @@ public class PtrrvListViewMode  extends AppCompatActivity {
         });
         mPtrrv.getRecyclerView().addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
+        mPtrrv.addHeaderView(View.inflate(this, R.layout.header, null));
         mAdapter = new PtrrvAdapter(this);
         mAdapter.setCount(DEFAULT_ITEM_SIZE);
         mPtrrv.setAdapter(mAdapter);
