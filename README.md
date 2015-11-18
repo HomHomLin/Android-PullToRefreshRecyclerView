@@ -1,6 +1,6 @@
 # Android-PullToRefreshRecyclerView
 
-![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/ptrrv_screenshot.png)
+![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
 这是一个可以下拉刷新的RecyclerView，并且支持方便添加Header、滑动到底部自动加载更多以及其他ListView的功能。
 
