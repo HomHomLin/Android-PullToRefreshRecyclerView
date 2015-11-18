@@ -25,3 +25,5 @@ android {
         buildToolsVersion "22.0.1"
     }
 }
+
+apply from: 'https://raw.githubusercontent.com/HomHomLin/Gradle-Publish/master/bintray.gradle'
