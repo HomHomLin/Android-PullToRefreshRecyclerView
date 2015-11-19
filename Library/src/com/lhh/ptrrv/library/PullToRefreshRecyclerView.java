@@ -2,11 +2,8 @@ package com.lhh.ptrrv.library;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -16,6 +13,7 @@ import com.lhh.ptrrv.library.footer.BaseFooter;
 import com.lhh.ptrrv.library.footer.LoadMoreFooter;
 import com.lhh.ptrrv.library.header.Header;
 import com.lhh.ptrrv.library.impl.PrvInterface;
+import com.lhh.ptrrv.library.util.PullToRefreshRecyclerViewUtil;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
@@ -23,7 +21,7 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements PrvInterface {
 
-    private static final String TAG = "PTRRV";
+//    private static final String TAG = "PTRRV";
 
     private RecyclerView mRecyclerView;
 
@@ -33,7 +31,8 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     //main view,contain footer，header etc.
     private RelativeLayout mRootRelativeLayout;
 
-    private View mHeader;//header
+    //header
+    private View mHeader;
 
     private View mEmptyView;
 
@@ -63,6 +62,8 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private InterOnScrollListener mInterOnScrollListener;
 
+    private PullToRefreshRecyclerViewUtil mPtrrvUtil;
+
     public interface PagingableListener{
         void onLoadMoreItems();
     }
@@ -86,7 +87,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     /**
-     * 全局入口
+     * main
      */
     private void setup(Context context){
         setupExtra(context);
@@ -94,16 +95,17 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         setLinster();
     }
 
+
+    /**
+     * initView
+     */
     private void initView(){
-        //初始化布局
         mRootRelativeLayout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.ptrrv_root_view, null);
 
         this.addView(mRootRelativeLayout);
 
         this.setColorSchemeResources(R.color.swap_holo_green_bright, R.color.swap_holo_bule_bright,
                 R.color.swap_holo_green_bright, R.color.swap_holo_bule_bright);
-
-        //初始化loadmoreview
 
         mRecyclerView = (RecyclerView)mRootRelativeLayout.findViewById(R.id.recycler_view);
 
@@ -125,6 +127,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         mContext = context;
         isLoading = false;
         hasMoreItems = false;
+        mPtrrvUtil = new PullToRefreshRecyclerViewUtil();
 //        mSpanItem = new int[SPAN_SIZE];
         //init something
 //        if(mFullLayoutParams == null) {
@@ -233,10 +236,10 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         if(getLayoutManager() == null){
             return;
         }
-        if(!hasMoreItems){
+        if(!hasMoreItems && mLoadMoreFooter != null){
 
             //if it's last line, minus the extra height of loadmore
-            mCurScroll = mCurScroll - 100;
+            mCurScroll = mCurScroll - mLoadMoreFooter.getLoadMorePadding();
 
         }
 
@@ -258,60 +261,15 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     public int findFirstVisibleItemPosition(){
-        if(getLayoutManager() != null) {
-
-            if (getLayoutManager() instanceof LinearLayoutManager) {
-                return ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
-            }
-
-            if (getLayoutManager() instanceof GridLayoutManager) {
-                return ((GridLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
-            }
-
-//            if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
-//                return (((StaggeredGridLayoutManager) getLayoutManager()).findFirstVisibleItemPositions(mSpanItem))[0];
-//            }
-
-        }
-        return RecyclerView.NO_POSITION;
+        return mPtrrvUtil.findFirstVisibleItemPosition(getLayoutManager());
     }
 
     public int findLastVisibleItemPosition(){
-        if(getLayoutManager() != null) {
-
-            if (getLayoutManager() instanceof LinearLayoutManager) {
-                return ((LinearLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
-            }
-
-            if (getLayoutManager() instanceof GridLayoutManager) {
-                return ((GridLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
-            }
-
-//            if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
-//                return (((StaggeredGridLayoutManager) getLayoutManager()).findLastVisibleItemPositions(mSpanItem))[0];
-//            }
-
-        }
-        return RecyclerView.NO_POSITION;
+        return mPtrrvUtil.findLastVisibleItemPosition(getLayoutManager());
     }
 
     public int findFirstCompletelyVisibleItemPosition(){
-        if(getLayoutManager() != null) {
-
-            if (getLayoutManager() instanceof LinearLayoutManager) {
-                return ((LinearLayoutManager) getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-            }
-
-            if (getLayoutManager() instanceof GridLayoutManager) {
-                return ((GridLayoutManager) getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-            }
-
-//            if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
-//                return (((StaggeredGridLayoutManager) getLayoutManager()).findLastVisibleItemPositions(mSpanItem))[0];
-//            }
-
-        }
-        return RecyclerView.NO_POSITION;
+        return mPtrrvUtil.findFirstCompletelyVisibleItemPosition(getLayoutManager());
     }
 
     @Override
@@ -357,7 +315,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     private void setHasMoreItems(boolean hasMoreItems) {
         this.hasMoreItems = hasMoreItems;
         if(mLoadMoreFooter == null){
-            mLoadMoreFooter = new LoadMoreFooter(mContext);
+            mLoadMoreFooter = new LoadMoreFooter(mContext,getRecyclerView());
         }
         if(!this.hasMoreItems) {
             //remove loadmore
@@ -409,8 +367,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
             if(mIsSwipeEnable) {
                 if (findFirstCompletelyVisibleItemPosition() != 0) {
-                    //here has a bug, if the item is too big , use findFirstCompletelyVisibleItemPosition会产生如果第一条太大，没办法完全显示则无法下啦刷新,但如果不用又会导致没拉到顶就可以下拉
-                    //如果不是第一条可见就不让下拉，要不然会出现很严重的到处都能下拉的问题
+                    //here has a bug, if the item is too big , use findFirstCompletelyVisibleItemPosition will cannot swipe
                     PullToRefreshRecyclerView.this.setEnabled(false);
                 } else {
                     PullToRefreshRecyclerView.this.setEnabled(true);
@@ -446,7 +403,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
                 return;
             }
 
-            //判断并显示emptyview
             RecyclerView.Adapter<?> adapter =  mRecyclerView.getAdapter();
             if(adapter != null && mEmptyView != null) {
                 if(adapter.getItemCount() == 0) {

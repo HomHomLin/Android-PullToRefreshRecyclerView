@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -21,49 +20,31 @@ public class LoadMoreFooter extends BaseFooter {
 
     private int mCircleSize = 25;
 
-    private int mLoadMorePadding = 100;//给loadmore预留一点空间
-
     private int mProgress = 30;//圆圈比例
 
-    private int mCircleOffset = 50;
+    private int mCircleOffset = 70;
 
-    private String mLoadMoreString;
-
-    public LoadMoreFooter(Context context) {
+    public LoadMoreFooter(Context context, RecyclerView recyclerView) {
+        super(context, recyclerView);
         paint = new Paint();
         oval = new RectF();
         mLoadMoreString = context.getString(R.string.loading);
     }
 
     @Override
-    public void setLoadmoreString(String str) {
-        mLoadMoreString = str;
-    }
-
-    @Override
-    public void onDraw(Canvas c, RecyclerView parent) {
-//        final int childCount = parent.getChildCount();
-//        drawLoadmore(c, parent);
-    }
-
-    @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        super.onDrawOver(c, parent, state);
-        drawLoadmore(c, parent);
-    }
-
-
-    public void drawLoadmore(Canvas c, RecyclerView parent) {
+    public void onDrawLoadMore(Canvas c, RecyclerView parent) {
         //这里的画图简直要画死人(=.=#)
-        //以后考虑换成动画形式
-
+        mProgress = mProgress + 5;
+        if(mProgress == 100){
+            mProgress = 0;
+        }
         final int left = parent.getPaddingLeft() ;
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight() ;
         final int childSize = parent.getChildCount() ;
         final View child = parent.getChildAt( childSize - 1 ) ;
         RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
         final int top = child.getBottom() + layoutParams.bottomMargin ;
-        final int bottom = top + mLoadMorePadding/2 ;
+        final int bottom = top + getLoadMorePadding()/2 ;
         paint.setAntiAlias(true);// 抗锯齿
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);// 增强消除锯齿
         paint.setColor(Color.GRAY);// 画笔为灰色
@@ -78,20 +59,6 @@ public class LoadMoreFooter extends BaseFooter {
         paint.setTextSize(40);// 设置文字的大小
         paint.setColor(Color.BLACK);// 设置画笔颜色
         c.drawText(mLoadMoreString, (right - left) / 2, bottom + 10, paint);
-
     }
 
-
-    /**
-     * 过时方法，但是不得不用
-     * @param outRect
-     * @param itemPosition
-     * @param parent
-     */
-    @Override
-    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-        if(itemPosition == parent.getAdapter().getItemCount() - 1) {
-            outRect.set(0, 0, 0, mLoadMorePadding);
-        }
-    }
 }
