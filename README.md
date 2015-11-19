@@ -1,7 +1,11 @@
 # Android-PullToRefreshRecyclerView
 
-这是一个可以下拉刷新的RecyclerView，并且支持方便添加Header、滑动到底部自动加载更多以及其他ListView的功能。
-它可以帮助你在RecyclerView里实现ListView拥有但RecyclerView没有的功能，并且不影响和增加你原有的RecyclerView和Adapter的逻辑。
+This is a project based on RecyclerView with pull-to-refresh feature.
+
+It support addding Header, auto-loading more data when scrolling to bottom.
+
+It can help you to implement ListView effect in RecyclerView, and not affect exsiting RecyclerView and Adapter logic.
+
 
 ![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
@@ -9,13 +13,13 @@
 **Latest version：v1.0.1**
 
 ## Feature
- * 基于原生RecyclerView的封装
- * 支持下拉刷新
- * 支持滑动到底部自动加载更多
- * 实现了ListView大部分API
- * 支持方便添加Header头部（原生RecyclerView不支持）
- * 支持设置EmptyView
- * 目前支持的LayoutManager模式:
+ * Encapsulation based on native RecyclerView
+ * Pull-to-refresh
+ * Auto load when scrolling to the bottom
+ * Most API of like ListView's
+ * Add Header easily (Not supported by native RecyclerView)
+ * Support EmptyView settings
+ * Current LayoutManager supported:
  	* **LinearLayoutManager**
  	* **GridLayoutManager**
 
