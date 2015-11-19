@@ -1,10 +1,12 @@
 # Android-PullToRefreshRecyclerView
 
+这是一个可以下拉刷新的RecyclerView，并且支持方便添加Header、滑动到底部自动加载更多以及其他ListView的功能。
+它可以帮助你在RecyclerView里实现ListView拥有但RecyclerView没有的功能，并且不影响和增加你原有的RecyclerView和Adapter的逻辑。
+
 ![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
-这是一个可以下拉刷新的RecyclerView，并且支持方便添加Header、滑动到底部自动加载更多以及其他ListView的功能，可以帮助你在RecyclerView里实现ListView拥有但RecyclerView没有的功能。
 
-**Latest version：v1.0.0**
+**Latest version：v1.0.1**
 
 ## Feature
  * 基于原生RecyclerView的封装
@@ -26,7 +28,7 @@ There has a Sample in project:[Sample](https://github.com/HomHomLin/Android-Pull
 
 **Gradle dependency:**
 ``` groovy
-compile 'homhomlin.lib:ptrrv-library:1.0.0'
+compile 'homhomlin.lib:ptrrv-library:1.0.1'
 ```
 
 or
@@ -36,13 +38,15 @@ or
 <dependency>
 	<groupId>homhomlin.lib</groupId>
 	<artifactId>ptrrv-library</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 
 ##Usage
 
 PullToRefreshRecyclerView is easy to use just like ListView and RecyclerView.
+
+See Sample for detail.
 
 **First: Config in xml**
 ``` xml
@@ -66,49 +70,49 @@ PullToRefreshRecyclerView mPtrrv = (PullToRefreshRecyclerView) this.findViewById
 
 **Third: Config it in java code**
 ``` java
-        // set true to open swipe(pull to refresh, default is true)
-        mPtrrv.setSwipeEnable(true);
+// set true to open swipe(pull to refresh, default is true)
+mPtrrv.setSwipeEnable(true);
 
-        // set the layoutManager which to use
-        mPtrrv.setLayoutManager(new LinearLayoutManager(this));
+// set the layoutManager which to use
+mPtrrv.setLayoutManager(new LinearLayoutManager(this));
 
-        // set PagingableListener
-        mPtrrv.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
-            @Override
-            public void onLoadMoreItems() {
-                //do loadmore here
-            }
-        });
+// set PagingableListener
+mPtrrv.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
+    @Override
+    public void onLoadMoreItems() {
+        //do loadmore here
+    }
+});
 
-        // set OnRefreshListener
-        mPtrrv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // do refresh here
-            }
-        });
+// set OnRefreshListener
+mPtrrv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+    @Override
+    public void onRefresh() {
+        // do refresh here
+    }
+});
 
-        // add item divider to recyclerView
-        mPtrrv.getRecyclerView().addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));
+// add item divider to recyclerView
+mPtrrv.getRecyclerView().addItemDecoration(new DividerItemDecoration(this,
+        DividerItemDecoration.VERTICAL_LIST));
 
-        // add headerView
-        mPtrrv.addHeaderView(View.inflate(this, R.layout.header, null));
+// add headerView
+mPtrrv.addHeaderView(View.inflate(this, R.layout.header, null));
 
-        //set EmptyVIEW
-        mPtrrv.setEmptyView(View.inflat(this,R.layout.empty_view, null));
+//set EmptyVIEW
+mPtrrv.setEmptyView(View.inflat(this,R.layout.empty_view, null));
 
-        // set loadmore String
-        mPtrrv.setLoadmoreString("loading");
+// set loadmore String
+mPtrrv.setLoadmoreString("loading");
 
-        // set loadmore enable, onFinishLoading(can load more? , select before item)
-        mPtrrv.onFinishLoading(true, false);
+// set loadmore enable, onFinishLoading(can load more? , select before item)
+mPtrrv.onFinishLoading(true, false);
 ```
 
 **Finally: Set the adapter which extends RecyclerView.Adpater**
 ``` java
-        PtrrvAdapter mAdapter = new PtrrvAdapter(this);
-        mPtrrv.setAdapter(mAdapter);
+PtrrvAdapter mAdapter = new PtrrvAdapter(this);
+mPtrrv.setAdapter(mAdapter);
 ```
 
 ##License
