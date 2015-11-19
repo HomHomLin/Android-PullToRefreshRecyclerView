@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="loading">加载中...</string>
+    <string name="loading">loading...</string>
 </resources>

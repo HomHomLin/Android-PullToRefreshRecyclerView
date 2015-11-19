@@ -204,7 +204,7 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/strings.xml -->
     <eat-comment/>
-    <string name="loading">加载中...</string>
+    <string name="loading">loading...</string>
     <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/values/values.xml -->
     <eat-comment/>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

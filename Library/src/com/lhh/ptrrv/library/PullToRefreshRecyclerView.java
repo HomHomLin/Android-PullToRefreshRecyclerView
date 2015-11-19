@@ -27,15 +27,18 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private RecyclerView mRecyclerView;
 
-    private Header mRootHeader;//留白header
+    //root header
+    private Header mRootHeader;
 
-    private RelativeLayout mRootRelativeLayout;//主view,包含footer，header等
+    //main view,contain footer，header etc.
+    private RelativeLayout mRootRelativeLayout;
 
     private View mHeader;//header
 
     private View mEmptyView;
 
-    private int mLoadMoreCount = 10;//default = 10
+    //default = 10
+    private int mLoadMoreCount = 10;
 
     private int mCurScroll;
 
@@ -44,12 +47,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     private Context mContext;
 
     private BaseFooter mLoadMoreFooter;
-
-//    private RecyclerView.LayoutManager mLayoutManger;
-
-//    private LinearLayoutManager mLinearLayoutManager;
-
-//    private LayoutParams mFullLayoutParams;//全屏型lp
 
     private PagingableListener mPagingableListener;
 
@@ -74,7 +71,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         void onScrollStateChanged(RecyclerView recyclerView, int newState);
         void onScrolled(RecyclerView recyclerView, int dx, int dy);
 
-        //old-method,仿造listview做的,这里应该没什么用处：by linhonghong 2015.10.29
+        //old-method, like listview 's onScroll ,but it's no use ,right ? by linhonghong 2015.10.29
         void onScroll(RecyclerView recyclerView, int firstVisibleItem, int visibleItemCount, int totalItemCount);
     }
 
@@ -86,10 +83,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     public PullToRefreshRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setup(context);
-    }
-
-    public void release(){
-
     }
 
     /**
@@ -125,7 +118,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     /**
-     * 初始化七七八八的东西
+     * Init
      * @param context
      */
     private void setupExtra(Context context){
@@ -133,7 +126,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         isLoading = false;
         hasMoreItems = false;
 //        mSpanItem = new int[SPAN_SIZE];
-        //初始化一些七七八八的东西
+        //init something
 //        if(mFullLayoutParams == null) {
 //            mFullLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 //        }
@@ -179,7 +172,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void addHeaderView(View view) {
-        //2015.11.17实现
+        //2015.11.17 finish method
         if(mHeader != null){
             mRootRelativeLayout.removeView(mHeader);
         }
@@ -199,10 +192,10 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
                     mHeader.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 }
 
-                if(getRecyclerView() == null || mHeader == null){
+                if (getRecyclerView() == null || mHeader == null) {
                     return;
                 }
-                if(mRootHeader == null){
+                if (mRootHeader == null) {
                     mRootHeader = new Header();
                 }
                 mRootHeader.setHeight(mHeader.getMeasuredHeight());
@@ -219,7 +212,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void setFooter(View view) {
-        //空实现，我不做处理这里。请在外部adapter做处理
+        // now is empty, you can do in extra adapter
     }
 
     @Override
@@ -237,17 +230,22 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void onFinishLoading(boolean hasMoreItems, boolean needSetSelection) {
-        //当一页数据太少的时候，不用显示loadingview
-        //临时修改，当一页数据太少的时候，不用显示loadingview
         if(getLayoutManager() == null){
             return;
         }
         if(!hasMoreItems){
-            //如果是最后一行
-            mCurScroll = mCurScroll - 100;//减去多出的loadmore的高度
+
+            //if it's last line, minus the extra height of loadmore
+            mCurScroll = mCurScroll - 100;
+
         }
-        if (getLayoutManager().getItemCount() < mLoadMoreCount)
+
+        // if items is too short, don't show loadingview
+        if (getLayoutManager().getItemCount() < mLoadMoreCount) {
+
             hasMoreItems = false;
+
+        }
 
         setHasMoreItems(hasMoreItems);
 
@@ -318,7 +316,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void setSwipeEnable(boolean enable) {
-        //just like extra setEnable(boolean).这里和外部一样的，不过这里控制更方便super.setenable
+        //just like extra setEnable(boolean).but it's more easy to use, like super.setEnable
         mIsSwipeEnable = enable;
         this.setEnabled(mIsSwipeEnable);
     }
@@ -345,6 +343,17 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         mLoadMoreCount = count;
     }
 
+    @Override
+    public void release() {
+
+    }
+
+    public void setLoadmoreString(String str){
+        if(mLoadMoreFooter != null){
+            mLoadMoreFooter.setLoadmoreString(str);
+        }
+    }
+
     private void setHasMoreItems(boolean hasMoreItems) {
         this.hasMoreItems = hasMoreItems;
         if(mLoadMoreFooter == null){
@@ -366,7 +375,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            //在向下回调之前做super处理
+            //do super before callback
             if(mOnScrollLinstener != null){
                 mOnScrollLinstener.onScrollStateChanged(recyclerView,newState);
             }
@@ -375,7 +384,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            //在向下回调之前做处理,do before callback
+            //do super before callback
             if(getLayoutManager() == null){
                 //here layoutManager is null
                 return;
@@ -394,12 +403,13 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             visibleItemCount = getLayoutManager().getChildCount();
             totalItemCount = getLayoutManager().getItemCount();
             firstVisibleItem = findFirstVisibleItemPosition();
-            lastVisibleItem = findLastVisibleItemPosition();//有可能最后一项实在太大了，没办法完全显示
+            //sometimes ,the last item is too big so as that the screen cannot show the item fully
+            lastVisibleItem = findLastVisibleItemPosition();
 //            lastVisibleItem = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
 
             if(mIsSwipeEnable) {
                 if (findFirstCompletelyVisibleItemPosition() != 0) {
-                    //这里还有个bug，如果用findFirstCompletelyVisibleItemPosition会产生如果第一条太大，没办法完全显示则无法下啦刷新,但如果不用又会导致没拉到顶就可以下拉
+                    //here has a bug, if the item is too big , use findFirstCompletelyVisibleItemPosition会产生如果第一条太大，没办法完全显示则无法下啦刷新,但如果不用又会导致没拉到顶就可以下拉
                     //如果不是第一条可见就不让下拉，要不然会出现很严重的到处都能下拉的问题
                     PullToRefreshRecyclerView.this.setEnabled(false);
                 } else {
@@ -417,7 +427,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
                 }
 
             }
-            //如果totalItemCount = adapter的最大就下拉刷新
 
             if(mOnScrollLinstener != null){
                 mOnScrollLinstener.onScrolled(recyclerView, dx, dy);
@@ -431,9 +440,9 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         @Override
         public void onChanged() {
             super.onChanged();
-            //数据变化,外部对adapter进行了数据刷新会直接调用到这里的代码
+            //adapter has change
             if(mRecyclerView == null){
-                //这里出错了，rv怎么可能是空的？？？
+                //here must be wrong ,recyclerView is null????
                 return;
             }
 

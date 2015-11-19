@@ -27,12 +27,17 @@ public class LoadMoreFooter extends BaseFooter {
 
     private int mCircleOffset = 50;
 
-    private Context mContext;
+    private String mLoadMoreString;
 
     public LoadMoreFooter(Context context) {
-        mContext = context;
         paint = new Paint();
         oval = new RectF();
+        mLoadMoreString = context.getString(R.string.loading);
+    }
+
+    @Override
+    public void setLoadmoreString(String str) {
+        mLoadMoreString = str;
     }
 
     @Override
@@ -46,17 +51,6 @@ public class LoadMoreFooter extends BaseFooter {
         super.onDrawOver(c, parent, state);
         drawLoadmore(c, parent);
     }
-
-//    final int left = parent.getPaddingLeft() ;
-//    final int right = parent.getMeasuredWidth() - parent.getPaddingRight() ;
-//    final int childSize = parent.getChildCount() ;
-//    for(int i = 0 ; i < childSize ; i ++){
-//        final View child = parent.getChildAt( i ) ;
-//        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-//        final int top = child.getBottom() + layoutParams.bottomMargin ;
-//        final int bottom = top + 100 ;
-//        c.drawRect(left,top,right,bottom,mPaint);
-//    }
 
 
     public void drawLoadmore(Canvas c, RecyclerView parent) {
@@ -83,7 +77,7 @@ public class LoadMoreFooter extends BaseFooter {
         paint.setStrokeWidth(3);// 再次设置画笔的宽度
         paint.setTextSize(40);// 设置文字的大小
         paint.setColor(Color.BLACK);// 设置画笔颜色
-        c.drawText(mContext.getString(R.string.loading), (right - left) / 2, bottom + 10, paint);
+        c.drawText(mLoadMoreString, (right - left) / 2, bottom + 10, paint);
 
     }
 
