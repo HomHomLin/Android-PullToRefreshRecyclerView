@@ -17,11 +17,11 @@ It can help you to implement ListView effect in RecyclerView, and not affect exs
 
 **Two new methods:**
 
-*1: void removeHeader();*
+* void removeHeader();
 
 To remove the header of PTRRV.
 
-*2: void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);*
+* void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
 
 To add a custom LoadMoreView.
 
