@@ -1,4 +1,4 @@
-package com.lhh.ptrrv.library.footer;
+package com.lhh.ptrrv.library.footer.loadmore;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,7 +12,7 @@ import com.lhh.ptrrv.library.util.PullToRefreshRecyclerViewUtil;
 /**
  * Created by Linhh on 15/11/15.
  */
-public class BaseFooter extends RecyclerView.ItemDecoration {
+public class BaseLoadMoreView extends RecyclerView.ItemDecoration {
 
     protected RecyclerView mRecyclerView;
     protected String mLoadMoreString;
@@ -21,7 +21,7 @@ public class BaseFooter extends RecyclerView.ItemDecoration {
     protected PullToRefreshRecyclerViewUtil mPtrrvUtil;
     protected int mLoadMorePadding = 100;
 
-    public BaseFooter(Context context, RecyclerView recyclerView){
+    public BaseLoadMoreView(Context context, RecyclerView recyclerView){
         mRecyclerView = recyclerView;
         mPtrrvUtil = new PullToRefreshRecyclerViewUtil();
     }
@@ -30,8 +30,16 @@ public class BaseFooter extends RecyclerView.ItemDecoration {
         mLoadMoreString = str;
     }
 
+    public String getLoadmoreString(){
+        return mLoadMoreString;
+    }
+
     public int getLoadMorePadding(){
         return mLoadMorePadding;
+    }
+
+    public void setLoadMorePadding(int padding){
+        mLoadMorePadding = padding;
     }
 
     protected Handler mInvalidateHanlder = new Handler(){

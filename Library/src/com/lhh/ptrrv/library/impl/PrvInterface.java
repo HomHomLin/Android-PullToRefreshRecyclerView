@@ -1,10 +1,10 @@
 package com.lhh.ptrrv.library.impl;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
+import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
 
 /**
  * Created by Linhh on 15/11/15.
@@ -16,8 +16,9 @@ public interface PrvInterface{
     void setEmptyView(View emptyView);
     void setAdapter(RecyclerView.Adapter adapter);
     void addHeaderView(View view);
-//    public void removeHeader();//移除header
+    void removeHeader();//移除header
     void setFooter(View view);
+    void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
     void addOnScrollListener(PullToRefreshRecyclerView.OnScrollListener onScrollLinstener);
     RecyclerView.LayoutManager getLayoutManager();
     void onFinishLoading(boolean hasMoreItems, boolean needSetSelection);

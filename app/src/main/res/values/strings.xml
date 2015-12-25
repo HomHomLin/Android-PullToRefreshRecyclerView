@@ -4,4 +4,5 @@
     <string name="nomoredata">no data any more</string>
     <string name="gridview_mode">GridView Mode</string>
     <string name="listview_mode">ListView Mode</string>
+    <string name="demo_loadmore">-loading-</string>
 </resources>

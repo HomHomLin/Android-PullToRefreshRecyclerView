@@ -40,6 +40,9 @@ public class PtrrvListViewMode  extends AppCompatActivity {
     private void findViews(){
         mPtrrv = (PullToRefreshRecyclerView) this.findViewById(R.id.ptrrv);
         mPtrrv.setSwipeEnable(true);//open swipe
+        DemoLoadMoreView loadMoreView = new DemoLoadMoreView(this, mPtrrv.getRecyclerView());
+        loadMoreView.setLoadmoreString(getString(R.string.demo_loadmore));
+        loadMoreView.setLoadMorePadding(100);
         mPtrrv.setLayoutManager(new LinearLayoutManager(this));
         mPtrrv.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
             @Override
@@ -56,6 +59,8 @@ public class PtrrvListViewMode  extends AppCompatActivity {
         mPtrrv.getRecyclerView().addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
         mPtrrv.addHeaderView(View.inflate(this, R.layout.header, null));
+        mPtrrv.removeHeader();
+        mPtrrv.setLoadMoreFooter(loadMoreView);
         mAdapter = new PtrrvAdapter(this);
         mAdapter.setCount(DEFAULT_ITEM_SIZE);
         mPtrrv.setAdapter(mAdapter);

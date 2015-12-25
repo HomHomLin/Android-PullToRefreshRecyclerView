@@ -7,5 +7,5 @@
     <color name="swap_holo_pure_bright">#d066b1</color>
     <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/strings.xml -->
     <eat-comment/>
-    <string name="loading">加载中...</string>
+    <string name="loading">loading...</string>
 </resources>

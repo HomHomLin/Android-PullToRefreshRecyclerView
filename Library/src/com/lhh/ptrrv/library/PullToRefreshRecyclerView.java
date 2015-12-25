@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
-import com.lhh.ptrrv.library.footer.BaseFooter;
-import com.lhh.ptrrv.library.footer.LoadMoreFooter;
+import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
+import com.lhh.ptrrv.library.footer.loadmore.DefaultLoadMoreView;
 import com.lhh.ptrrv.library.header.Header;
 import com.lhh.ptrrv.library.impl.PrvInterface;
 import com.lhh.ptrrv.library.util.PullToRefreshRecyclerViewUtil;
@@ -45,7 +45,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private Context mContext;
 
-    private BaseFooter mLoadMoreFooter;
+    private BaseLoadMoreView mLoadMoreFooter;
 
     private PagingableListener mPagingableListener;
 
@@ -214,8 +214,25 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     @Override
+    public void removeHeader() {
+        if (mRootHeader != null) {
+            getRecyclerView().removeItemDecoration(mRootHeader);
+            mRootHeader = null;
+        }
+        if(mHeader != null){
+            mRootRelativeLayout.removeView(mHeader);
+            mHeader = null;
+        }
+    }
+
+    @Override
     public void setFooter(View view) {
         // now is empty, you can do in extra adapter
+    }
+
+    @Override
+    public void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter) {
+        mLoadMoreFooter = loadMoreFooter;
     }
 
     @Override
@@ -315,7 +332,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     private void setHasMoreItems(boolean hasMoreItems) {
         this.hasMoreItems = hasMoreItems;
         if(mLoadMoreFooter == null){
-            mLoadMoreFooter = new LoadMoreFooter(mContext,getRecyclerView());
+            mLoadMoreFooter = new DefaultLoadMoreView(mContext,getRecyclerView());
         }
         if(!this.hasMoreItems) {
             //remove loadmore

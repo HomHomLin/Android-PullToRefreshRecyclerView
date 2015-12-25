@@ -1,4 +1,4 @@
-package com.lhh.ptrrv.library.footer;
+package com.linhh.ptrrv.android_pulltorefreshrecyclerview;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,12 +8,12 @@ import android.graphics.RectF;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lhh.ptrrv.library.R;
+import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
 
 /**
- * Created by Linhh on 15/11/15.
+ * Created by linhonghong on 2015/12/25.
  */
-public class LoadMoreFooter extends BaseFooter {
+public class DemoLoadMoreView extends BaseLoadMoreView {
 
     private Paint paint;
     private RectF oval;
@@ -24,16 +24,15 @@ public class LoadMoreFooter extends BaseFooter {
 
     private int mCircleOffset = 70;
 
-    public LoadMoreFooter(Context context, RecyclerView recyclerView) {
+    public DemoLoadMoreView(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
         paint = new Paint();
         oval = new RectF();
-        mLoadMoreString = context.getString(R.string.loading);
+//        mLoadMoreString = context.getString(R.string.loading);
     }
 
     @Override
     public void onDrawLoadMore(Canvas c, RecyclerView parent) {
-        //这里的画图简直要画死人(=.=#)
         mProgress = mProgress + 5;
         if(mProgress == 100){
             mProgress = 0;
@@ -58,7 +57,7 @@ public class LoadMoreFooter extends BaseFooter {
         paint.setStrokeWidth(3);// 再次设置画笔的宽度
         paint.setTextSize(40);// 设置文字的大小
         paint.setColor(Color.BLACK);// 设置画笔颜色
-        c.drawText(mLoadMoreString, (right - left) / 2, bottom + 10, paint);
+        c.drawText(getLoadmoreString(), (right - left) / 2, bottom + 10, paint);
     }
 
 }
