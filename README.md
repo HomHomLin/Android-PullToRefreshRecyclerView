@@ -15,17 +15,17 @@ It can help you to implement ListView effect in RecyclerView, and not affect exs
 ## Update Log
 **1.1.0 What's New**
 
-Two new methods:
+**Two new methods:**
 
-1: void removeHeader();
+*1: void removeHeader();*
 
 To remove the header of PTRRV.
 
-2: void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
+*2: void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);*
 
 To add a custom LoadMoreView.
 
-Now you can define a LoadMoreView by inheriting BaseLoadMoreView and using onDrawLoadMore(Canvas c, RecyclerView parent), and replace the default LoadMoreView by using setLoadMoreFooter(BaseLoadMoreView loadMoreFooter).
+Now you can define a LoadMoreView by extends BaseLoadMoreView and implements it's onDrawLoadMore(Canvas c, RecyclerView parent), and replace the default LoadMoreView by using setLoadMoreFooter(BaseLoadMoreView loadMoreFooter).
 
 How to make custom LoadMoreView, see 'DemoLoadMoreView.class' in demo project.
 
