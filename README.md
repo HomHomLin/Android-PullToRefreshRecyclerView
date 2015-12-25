@@ -10,7 +10,19 @@ It can help you to implement ListView effect in RecyclerView, and not affect exs
 ![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
 
-**Latest version：v1.0.1**
+**Latest version：v1.1.0**
+
+## Update Log
+**1.1.0 What's New**
+Two new methods:
+
+1: void removeHeader();
+To remove the header of PTRRV.
+
+2: void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
+To add a custom LoadMoreView.
+Now you can define a LoadMoreView by inheriting BaseLoadMoreView and using onDrawLoadMore(Canvas c, RecyclerView parent), and replace the default LoadMoreView by using setLoadMoreFooter(BaseLoadMoreView loadMoreFooter).
+How to make custom LoadMoreView, see 'DemoLoadMoreView.class' in demo project.
 
 ## Feature
  * Encapsulation based on native RecyclerView
@@ -32,7 +44,7 @@ There has a Sample in project:[Sample](https://github.com/HomHomLin/Android-Pull
 
 **Gradle dependency:**
 ``` groovy
-compile 'homhomlin.lib:ptrrv-library:1.0.1'
+compile 'homhomlin.lib:ptrrv-library:1.1.0'
 ```
 
 or
@@ -42,13 +54,14 @@ or
 <dependency>
 	<groupId>homhomlin.lib</groupId>
 	<artifactId>ptrrv-library</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 
 ##Usage
 
 PullToRefreshRecyclerView is easy to use just like ListView and RecyclerView.
+It is derived from native SwipeRefreshLayout, so all property of SwipeRefreshLayout can be used here.
 
 See Sample for detail.
 
@@ -74,6 +87,16 @@ PullToRefreshRecyclerView mPtrrv = (PullToRefreshRecyclerView) this.findViewById
 
 **Third: Config it in java code**
 ``` java
+// custom own load-more-view and add it into ptrrv
+DemoLoadMoreView loadMoreView = new DemoLoadMoreView(this, mPtrrv.getRecyclerView());
+loadMoreView.setLoadmoreString(getString(R.string.demo_loadmore));
+loadMoreView.setLoadMorePadding(100);
+
+mPtrrv.setLoadMoreFooter(loadMoreView);
+
+//remove header
+mPtrrv.removeHeader();
+
 // set true to open swipe(pull to refresh, default is true)
 mPtrrv.setSwipeEnable(true);
 
