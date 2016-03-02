@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/colors.xml -->
+    <!-- From: file:/Users/Linhh/AndroidStudioProjects/Android-PullToRefreshRecyclerView/Library/res/values/colors.xml -->
     <eat-comment/>
     <color name="swap_holo_bule_bright">#4996e5</color>
     <color name="swap_holo_green_bright">#48B94A</color>
     <color name="swap_holo_pure_bright">#d066b1</color>
-    <!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/values/strings.xml -->
+    <!-- From: file:/Users/Linhh/AndroidStudioProjects/Android-PullToRefreshRecyclerView/Library/res/values/strings.xml -->
     <eat-comment/>
     <string name="loading">loading...</string>
 </resources>

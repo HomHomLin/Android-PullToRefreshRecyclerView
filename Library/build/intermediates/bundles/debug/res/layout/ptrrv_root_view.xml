@@ -8,4 +8,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
-</RelativeLayout><!-- From: file:/F:/Project/Android-PullToRefreshRecyclerView/Library/res/layout/ptrrv_root_view.xml -->
+</RelativeLayout><!-- From: file:/Users/Linhh/AndroidStudioProjects/Android-PullToRefreshRecyclerView/Library/res/layout/ptrrv_root_view.xml -->

@@ -43,15 +43,9 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private boolean mIsSwipeEnable = false;
 
-    private Context mContext;
-
     private BaseLoadMoreView mLoadMoreFooter;
 
     private PagingableListener mPagingableListener;
-
-//    private int[] mSpanItem;
-
-//    private static final int SPAN_SIZE = 1;
 
     private AdapterObserver mAdapterObserver;
 
@@ -77,20 +71,19 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     public PullToRefreshRecyclerView(Context context) {
-        super(context);
-        this.setup(context);
+        this(context,null);
     }
 
     public PullToRefreshRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setup(context);
+        this.setup();
     }
 
     /**
      * main
      */
-    private void setup(Context context){
-        setupExtra(context);
+    private void setup(){
+        setupExtra();
         initView();
         setLinster();
     }
@@ -100,7 +93,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
      * initView
      */
     private void initView(){
-        mRootRelativeLayout = (RelativeLayout)LayoutInflater.from(mContext).inflate(R.layout.ptrrv_root_view, null);
+        mRootRelativeLayout = (RelativeLayout)LayoutInflater.from(getContext()).inflate(R.layout.ptrrv_root_view, null);
 
         this.addView(mRootRelativeLayout);
 
@@ -121,19 +114,11 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     /**
      * Init
-     * @param context
      */
-    private void setupExtra(Context context){
-        mContext = context;
+    private void setupExtra(){
         isLoading = false;
         hasMoreItems = false;
         mPtrrvUtil = new PullToRefreshRecyclerViewUtil();
-//        mSpanItem = new int[SPAN_SIZE];
-        //init something
-//        if(mFullLayoutParams == null) {
-//            mFullLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-//        }
-
     }
 
     private void setLinster(){
@@ -208,8 +193,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             }
         });
 
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mRootRelativeLayout.addView(mHeader);
     }
 
@@ -250,21 +233,19 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void onFinishLoading(boolean hasMoreItems, boolean needSetSelection) {
+
         if(getLayoutManager() == null){
             return;
         }
-        if(!hasMoreItems && mLoadMoreFooter != null){
 
+        if(!hasMoreItems && mLoadMoreFooter != null){
             //if it's last line, minus the extra height of loadmore
             mCurScroll = mCurScroll - mLoadMoreFooter.getLoadMorePadding();
-
         }
 
         // if items is too short, don't show loadingview
         if (getLayoutManager().getItemCount() < mLoadMoreCount) {
-
             hasMoreItems = false;
-
         }
 
         setHasMoreItems(hasMoreItems);
@@ -332,7 +313,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     private void setHasMoreItems(boolean hasMoreItems) {
         this.hasMoreItems = hasMoreItems;
         if(mLoadMoreFooter == null){
-            mLoadMoreFooter = new DefaultLoadMoreView(mContext,getRecyclerView());
+            mLoadMoreFooter = new DefaultLoadMoreView(getContext(),getRecyclerView());
         }
         if(!this.hasMoreItems) {
             //remove loadmore
@@ -342,7 +323,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             mRecyclerView.removeItemDecoration(mLoadMoreFooter);
             mRecyclerView.addItemDecoration(mLoadMoreFooter);
         }
-        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     private class InterOnScrollListener extends RecyclerView.OnScrollListener{
