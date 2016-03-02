@@ -10,9 +10,13 @@ It can help you to implement ListView effect in RecyclerView, and not affect exs
 ![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
 
-**Latest version：v1.1.0**
+**Latest version：v1.2.0**
 
 ## Update Log
+**1.2.0 What's New**
+
+Fix bug
+
 **1.1.0 What's New**
 
 **Two new methods:**
@@ -49,7 +53,7 @@ There has a Sample in project:[Sample](https://github.com/HomHomLin/Android-Pull
 
 **Gradle dependency:**
 ``` groovy
-compile 'homhomlin.lib:ptrrv-library:1.1.0'
+compile 'homhomlin.lib:ptrrv-library:1.2.0'
 ```
 
 or
@@ -59,7 +63,7 @@ or
 <dependency>
 	<groupId>homhomlin.lib</groupId>
 	<artifactId>ptrrv-library</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 </dependency>
 ```
 
