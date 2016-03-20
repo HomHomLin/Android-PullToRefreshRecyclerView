@@ -88,6 +88,9 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         setLinster();
     }
 
+    public void setRefreshing(boolean refreshing){
+        super.setRefreshing(true);
+    }
 
     /**
      * initView
