@@ -105,8 +105,6 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
         mRecyclerView = (RecyclerView)mRootRelativeLayout.findViewById(R.id.recycler_view);
 
-//        mLinearLayoutManager = new LinearLayoutManager(mContext);
-//        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         if(!mIsSwipeEnable) {
@@ -146,6 +144,9 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     @Override
     public void setEmptyView(View emptyView) {
+        if(mEmptyView != null) {
+            mRootRelativeLayout.removeView(mEmptyView);
+        }
         mEmptyView = emptyView;
     }
 
@@ -159,6 +160,16 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             adapter.registerAdapterDataObserver(mAdapterObserver);
             mAdapterObserver.onChanged();
         }
+    }
+
+    @Override
+    public void scrollToPosition(int position) {
+        mRecyclerView.scrollToPosition(position);
+    }
+
+    @Override
+    public void smoothScrollToPosition(int position) {
+        mRecyclerView.smoothScrollToPosition(position);
     }
 
     @Override
@@ -408,6 +419,9 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
                 if(adapter.getItemCount() == 0) {
                     if(mIsSwipeEnable) {
                         PullToRefreshRecyclerView.this.setEnabled(false);
+                    }
+                    if(mEmptyView.getParent() != mRootRelativeLayout) {
+                        mRootRelativeLayout.addView(mEmptyView);
                     }
                     mEmptyView.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.GONE);

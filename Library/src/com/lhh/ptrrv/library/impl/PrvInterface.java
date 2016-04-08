@@ -18,6 +18,8 @@ public interface PrvInterface{
     void addHeaderView(View view);
     void removeHeader();//移除header
     void setFooter(View view);
+    void scrollToPosition(int position);
+    void smoothScrollToPosition(int position);
     void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
     void addOnScrollListener(PullToRefreshRecyclerView.OnScrollListener onScrollLinstener);
     RecyclerView.LayoutManager getLayoutManager();
