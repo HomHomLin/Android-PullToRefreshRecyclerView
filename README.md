@@ -10,26 +10,7 @@ It can help you to implement ListView effect in RecyclerView, and not affect exs
 ![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
 
-**Latest version：v1.2.0**
-
-## Update Log
-**1.2.0 What's New**
-
-Fix bug
-
-**1.1.0 What's New**
-
-**Two new methods:**
-
-* void removeHeader();
-
-To remove the header of PTRRV.
-
-* void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
-
-To add a custom LoadMoreView.
-
-Now you can define a LoadMoreView by extends BaseLoadMoreView and implements it's onDrawLoadMore(Canvas c, RecyclerView parent), and replace the default LoadMoreView by using setLoadMoreFooter(BaseLoadMoreView loadMoreFooter).
+**Latest version：v1.3.0**
 
 How to make custom LoadMoreView, see 'DemoLoadMoreView.class' in demo project.
 
@@ -53,7 +34,7 @@ There has a Sample in project:[Sample](https://github.com/HomHomLin/Android-Pull
 
 **Gradle dependency:**
 ``` groovy
-compile 'homhomlin.lib:ptrrv-library:1.2.0'
+compile 'homhomlin.lib:ptrrv-library:1.3.0'
 ```
 
 or
@@ -63,7 +44,7 @@ or
 <dependency>
 	<groupId>homhomlin.lib</groupId>
 	<artifactId>ptrrv-library</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 </dependency>
 ```
 
