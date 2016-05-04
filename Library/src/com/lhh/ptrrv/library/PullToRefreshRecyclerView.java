@@ -89,7 +89,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     public void setRefreshing(boolean refreshing){
-        super.setRefreshing(true);
+        super.setRefreshing(refreshing);
     }
 
     /**
