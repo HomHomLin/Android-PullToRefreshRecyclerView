@@ -10,7 +10,7 @@ It can help you to implement ListView effect in RecyclerView, and not affect exs
 ![Screenshot](https://github.com/HomHomLin/Android-PullToRefreshRecyclerView/blob/master/screenshot.gif)
 
 
-**Latest version：v1.3.0**
+**Latest version：v1.3.1**
 
 How to make custom LoadMoreView, see 'DemoLoadMoreView.class' in demo project.
 
@@ -34,7 +34,7 @@ There has a Sample in project:[Sample](https://github.com/HomHomLin/Android-Pull
 
 **Gradle dependency:**
 ``` groovy
-compile 'homhomlin.lib:ptrrv-library:1.3.0'
+compile 'homhomlin.lib:ptrrv-library:1.3.1'
 ```
 
 or
@@ -44,8 +44,14 @@ or
 <dependency>
 	<groupId>homhomlin.lib</groupId>
 	<artifactId>ptrrv-library</artifactId>
-	<version>1.3.0</version>
+	<version>1.3.1</version>
 </dependency>
+```
+
+If you want your application work on Android 2.x, you should add this in your gradle :
+
+``` groovy
+compile 'com.nineoldandroids:library:2.4.0'
 ```
 
 ##Usage

@@ -1,4 +1,9 @@
 ## Update Log
+
+**1.3.1 What's New**
+
+Fix bug
+
 **1.3.0 What's New**
 
 Fix bug
