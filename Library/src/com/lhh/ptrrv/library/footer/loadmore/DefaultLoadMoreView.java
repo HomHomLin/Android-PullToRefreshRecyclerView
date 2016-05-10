@@ -55,6 +55,8 @@ public class DefaultLoadMoreView extends BaseLoadMoreView {
         oval.set((right - left) / 2 - mCircleOffset - mCircleSize, bottom - mCircleSize, (right - left) / 2 - mCircleOffset + mCircleSize, bottom + mCircleSize);// 在Circle小于圈圈大小的地方画圆，这样也就保证了半径为mCircleSize
         c.drawArc(oval, -90, ((float) mProgress / 100) * 360, false, paint);// 圆弧，第二个参数为：起始角度，第三个为跨的角度，第四个为true的时候是实心，false的时候为空心
         paint.reset();// 将画笔重置
+        paint.setAntiAlias(true);// 抗锯齿
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);// 增强消除锯齿
         paint.setStrokeWidth(3);// 再次设置画笔的宽度
         paint.setTextSize(40);// 设置文字的大小
         paint.setColor(Color.BLACK);// 设置画笔颜色
