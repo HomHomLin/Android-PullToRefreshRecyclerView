@@ -21,6 +21,7 @@ public interface PrvInterface{
     void scrollToPosition(int position);
     void smoothScrollToPosition(int position);
     void setLoadMoreFooter(BaseLoadMoreView loadMoreFooter);
+    BaseLoadMoreView getLoadMoreFooter();
     void addOnScrollListener(PullToRefreshRecyclerView.OnScrollListener onScrollLinstener);
     RecyclerView.LayoutManager getLayoutManager();
     void onFinishLoading(boolean hasMoreItems, boolean needSetSelection);

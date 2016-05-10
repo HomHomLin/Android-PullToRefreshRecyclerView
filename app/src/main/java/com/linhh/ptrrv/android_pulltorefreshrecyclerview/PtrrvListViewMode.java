@@ -1,6 +1,7 @@
 package com.linhh.ptrrv.android_pulltorefreshrecyclerview;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,11 +9,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
+import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
 
 /**
  * Created by Linhh on 15/11/15.
@@ -62,6 +65,13 @@ public class PtrrvListViewMode  extends AppCompatActivity {
         mPtrrv.setEmptyView(View.inflate(this,R.layout.empty_view,null));
 //        mPtrrv.removeHeader();
         mPtrrv.setLoadMoreFooter(loadMoreView);
+        mPtrrv.getLoadMoreFooter().setOnDrawListener(new BaseLoadMoreView.OnDrawListener() {
+            @Override
+            public boolean onDrawLoadMore(Canvas c, RecyclerView parent) {
+                Log.i("onDrawLoadMore","draw load more");
+                return false;
+            }
+        });
         mAdapter = new PtrrvAdapter(this);
 //        mAdapter.setCount(0);
         mAdapter.setCount(DEFAULT_ITEM_SIZE);

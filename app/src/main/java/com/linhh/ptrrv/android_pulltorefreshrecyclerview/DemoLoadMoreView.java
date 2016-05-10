@@ -33,6 +33,7 @@ public class DemoLoadMoreView extends BaseLoadMoreView {
 
     @Override
     public void onDrawLoadMore(Canvas c, RecyclerView parent) {
+        super.onDrawLoadMore(c,parent);
         mProgress = mProgress + 5;
         if(mProgress == 100){
             mProgress = 0;

@@ -20,10 +20,15 @@ public class BaseLoadMoreView extends RecyclerView.ItemDecoration {
     protected long mUpdateTime = 150;
     protected PullToRefreshRecyclerViewUtil mPtrrvUtil;
     protected int mLoadMorePadding = 100;
+    protected OnDrawListener mOnDrawListener;
 
     public BaseLoadMoreView(Context context, RecyclerView recyclerView){
         mRecyclerView = recyclerView;
         mPtrrvUtil = new PullToRefreshRecyclerViewUtil();
+    }
+
+    public interface OnDrawListener{
+        public boolean onDrawLoadMore(Canvas c, RecyclerView parent);
     }
 
     public void setLoadmoreString(String str) {
@@ -83,7 +88,15 @@ public class BaseLoadMoreView extends RecyclerView.ItemDecoration {
     }
 
     protected void onDrawLoadMore(Canvas c, RecyclerView parent){
+        if(mOnDrawListener != null){
+            if(mOnDrawListener.onDrawLoadMore(c,parent)){
+                return;
+            }
+        }
+    }
 
+    public void setOnDrawListener(OnDrawListener listener){
+        mOnDrawListener = listener;
     }
 
     public void release(){

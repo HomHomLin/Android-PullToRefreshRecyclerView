@@ -233,6 +233,11 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     }
 
     @Override
+    public BaseLoadMoreView getLoadMoreFooter() {
+        return mLoadMoreFooter;
+    }
+
+    @Override
     public void addOnScrollListener(PullToRefreshRecyclerView.OnScrollListener onScrollLinstener) {
         mOnScrollLinstener = onScrollLinstener;
     }
