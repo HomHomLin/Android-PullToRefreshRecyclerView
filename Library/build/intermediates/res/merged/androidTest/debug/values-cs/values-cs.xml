@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Linhh/AndroidStudioProjects/Android-PullToRefreshRecyclerView/Library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/values-cs/values.xml -->
-    <eat-comment/>
     <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Přejít na plochu"</string>
     <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Přejít nahoru"</string>
     <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Více možností"</string>

@@ -2,7 +2,10 @@ package com.lhh.ptrrv.library;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +61,8 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
 
     private PullToRefreshRecyclerViewUtil mPtrrvUtil;
 
+    private int lastVisibleItem;
+
     public interface PagingableListener{
         void onLoadMoreItems();
     }
@@ -111,6 +116,31 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             this.setEnabled(false);
         }
 
+        //使用layout manager 来判断是否向上滑动到了底部
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //0：当前屏幕停止滚动；1时：屏幕在滚动 且 用户仍在触碰或手指还在屏幕上；2时：随用户的操作，屏幕上产生的惯性滑动；
+                // 滑动状态停止并且剩余少于两个item时，自动加载下一页
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItem +2>=recyclerView.getLayoutManager().getItemCount()) {
+                    isLoading = true;
+                    mPagingableListener.onLoadMoreItems();
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                //获取加载的最后一个可见视图在适配器的位置。
+                if(recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager){
+                    int[] positions= ((StaggeredGridLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPositions(null);
+                    lastVisibleItem =Math.max(positions[0],positions[1]);
+                } else{
+                    lastVisibleItem = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                }
+            }
+        });
     }
 
     /**
@@ -393,13 +423,15 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
             if(totalItemCount < mLoadMoreCount){
                 setHasMoreItems(false);
                 isLoading = false;
-            }else if (!isLoading && hasMoreItems && ((lastVisibleItem + 1) == totalItemCount)) {
+            }
+
+            /*else if (!isLoading && hasMoreItems && ((lastVisibleItem + 1) == totalItemCount)) {
                 if (mPagingableListener != null) {
                     isLoading = true;
                     mPagingableListener.onLoadMoreItems();
                 }
 
-            }
+            }*/
 
             if(mOnScrollLinstener != null){
                 mOnScrollLinstener.onScrolled(recyclerView, dx, dy);
@@ -408,6 +440,8 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
         }
 
     }
+
+
 
     private class AdapterObserver extends RecyclerView.AdapterDataObserver{
         @Override
